@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/project?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&serverTimezone=Asia/Shanghai
+    username: project
+    password: XueGod!@#123
+  thymeleaf:
+    cache: false
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: AUTO
+  mapper-locations: classpath:mapper/project/*Mapper.xml
+  type-aliases-package: com.imooc.project.entity
+logging:
+  level:
+    com.imooc.project.dao: trace
