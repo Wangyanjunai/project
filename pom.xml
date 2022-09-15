@@ -22,6 +22,7 @@
         <locator.version>0.40</locator.version>
         <hutool.version>5.4.7</hutool.version>
         <freemark.version>2.3.30</freemark.version>
+        <skipTests>true</skipTests>
     </properties>
 
     <dependencies>
