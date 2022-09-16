@@ -21,7 +21,7 @@
         <layui.version>2.5.6</layui.version>
         <locator.version>0.40</locator.version>
         <hutool.version>5.4.7</hutool.version>
-        <skipTests>true</skipTests>
+        <freemark.version>2.3.30</freemark.version>
     </properties>
 
     <dependencies>
@@ -102,6 +102,7 @@
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
+            <version>${freemark.version}</version>
             <scope>test</scope>
         </dependency>
 
