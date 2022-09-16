@@ -40,6 +40,7 @@ public class CodeGenerator {
                 return ipt;
             }
         }
+        scanner.close();
         throw new MybatisPlusException("请输入正确的" + tip + "！");
     }
 

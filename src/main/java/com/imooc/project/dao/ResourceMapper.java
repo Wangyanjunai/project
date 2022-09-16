@@ -8,8 +8,6 @@ import com.imooc.project.vo.ResourceVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-import java.util.Map;
-
 /**
  * <p>
  * 资源表 Mapper 接口
