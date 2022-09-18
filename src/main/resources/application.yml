@@ -14,4 +14,7 @@ mybatis-plus:
   type-aliases-package: com.imooc.project.entity
 logging:
   level:
+    root: warn
     com.imooc.project.dao: trace
+  pattern:
+    console: '%p%m%n'

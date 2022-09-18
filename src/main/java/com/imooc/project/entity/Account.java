@@ -1,7 +1,6 @@
 package com.imooc.project.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.imooc.project.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

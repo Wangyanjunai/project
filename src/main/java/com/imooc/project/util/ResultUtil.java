@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.api.R;
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("deprecation")
 public class ResultUtil {
 
     /**
@@ -14,7 +15,6 @@ public class ResultUtil {
      * @param page
      * @return
      */
-    @SuppressWarnings("deprecation")
     public static R<Map<String, Object>> buildPageR(IPage<?> page) {
         Map<String, Object> data = new HashMap<String, Object>();
         data.put("count", page.getTotal());
@@ -27,7 +27,6 @@ public class ResultUtil {
      * @param success
      * @return
      */
-    @SuppressWarnings("deprecation")
     public static R<Object> buildR(boolean success) {
         if (success) {
             return R.ok(null);
