@@ -1,11 +1,14 @@
 package com.imooc.project.service.impl;
 
 import cn.hutool.crypto.digest.MD5;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.imooc.project.dao.AccountMapper;
 import com.imooc.project.dto.LoginDTO;
 import com.imooc.project.entity.Account;
-import com.imooc.project.dao.AccountMapper;
 import com.imooc.project.service.AccountService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -37,5 +40,17 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         loginDTO.setPath("login/main");
         loginDTO.setAccount(account);
         return loginDTO;
+    }
+
+    /**
+     * 分页查询账号
+     *
+     * @param page
+     * @param wrapper
+     * @return
+     */
+    @Override
+    public IPage<Account> accountPage(Page<Account> page, Wrapper<Account> wrapper) {
+        return baseMapper.accountPage(page, wrapper);
     }
 }

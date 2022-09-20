@@ -10,10 +10,9 @@ import com.imooc.project.service.CustomerService;
 import com.imooc.project.util.ResultUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import org.springframework.stereotype.Controller;
 
 import java.util.Map;
 
@@ -110,5 +109,18 @@ public class CustomerController {
     @ResponseBody
     public R<Object> delete(@PathVariable Long id) {
         return ResultUtil.buildR(this.customerService.removeById(id));
+    }
+
+    /**
+     * 进入详情页
+     *
+     * @return
+     */
+    @GetMapping("toDetail/{id}")
+    public String toDetail(@PathVariable Long id, Model model) {
+        Customer customer = this.customerService.getById(id);
+        log.info("customer={}", customer);
+        model.addAttribute("customer", customer);
+        return "customer/customerDetail";
     }
 }

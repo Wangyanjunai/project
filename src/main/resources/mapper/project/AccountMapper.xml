@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.imooc.project.dao.AccountMapper">
-
+    <!--分页查询账号-->
+    <select id="accountPage" resultType="com.imooc.project.entity.Account">
+        SELECT a.account_id,
+               a.role_id,
+               a.username,
+               a.password,
+               a.salt,
+               a.real_name,
+               a.sex,
+               a.email,
+               a.create_time,
+               a.modified_time,
+               a.create_account_id,
+               a.modified_account_id,
+               a.deleted,
+               r.role_name
+        FROM account a
+                 INNER JOIN role r
+                            ON a.role_id = r.role_id
+            ${ew.customSqlSegment}
+    </select>
 </mapper>

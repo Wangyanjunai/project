@@ -1,6 +1,7 @@
 package com.imooc.project.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -31,6 +32,12 @@ public class Account extends BaseEntity implements Serializable {
      * 角色id
      */
     private Long roleId;
+
+    /**
+     * 角色名称
+     */
+    @TableField(exist = false)
+    private String roleName;
 
     /**
      * 用户名
