@@ -3,6 +3,7 @@ package com.imooc.project.service;
 import com.imooc.project.entity.Resource;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.imooc.project.vo.ResourceVO;
+import com.imooc.project.vo.TreeVO;
 
 import java.util.List;
 
@@ -23,4 +24,11 @@ public interface ResourceService extends IService<Resource> {
      * @return
      */
     List<ResourceVO> listResourceByRoleId(Long roleId);
+
+    /**
+     * 查询系统资源，供前端组件渲染
+     *
+     * @return
+     */
+    List<TreeVO> listResource();
 }

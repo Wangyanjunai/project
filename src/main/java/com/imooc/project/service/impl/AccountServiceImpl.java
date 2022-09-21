@@ -53,4 +53,15 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     public IPage<Account> accountPage(Page<Account> page, Wrapper<Account> wrapper) {
         return baseMapper.accountPage(page, wrapper);
     }
+
+    /**
+     * 根据accountId查询账号信息
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Account getAccountById(Long id) {
+        return baseMapper.selectAccountById(id);
+    }
 }

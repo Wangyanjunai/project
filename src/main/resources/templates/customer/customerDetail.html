@@ -43,7 +43,7 @@
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">创建时间</label>
-        <div class="layui-form-mid" th:text="*{#temporals.format(createTime, 'yyyy-MM-dd HH:mm:ss')}"></div>
+        <div class="layui-form-mid" th:if="*{createTime != null}" th:text="*{#temporals.format(createTime, 'yyyy-MM-dd HH:mm:ss')}"></div>
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">

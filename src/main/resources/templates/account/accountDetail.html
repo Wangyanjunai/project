@@ -1,43 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/webjars/layui/css/layui.css}">
 </head>
 <body>
-<div class="layui-form">
+<div class="layui-form" th:object="${account}">
     <div class="layui-form-item">
         <label class="layui-form-label">用户名</label>
         <div class="layui-input-block">
-            <div class="layui-form-mid"></div>
+            <div class="layui-form-mid" th:text="*{username}"></div>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">真实姓名</label>
         <div class="layui-input-block">
-            <div class="layui-form-mid"></div>
+            <div class="layui-form-mid" th:text="*{realName}"></div>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">角色</label>
         <div class="layui-input-block">
-            <div class="layui-form-mid"></div>
+            <div class="layui-form-mid" th:text="*{roleName}"></div>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">性别</label>
         <div class="layui-input-block">
-            <div class="layui-form-mid"></div>
+            <div class="layui-form-mid" th:text="*{sex}"></div>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">邮箱</label>
         <div class="layui-input-block">
-            <div class="layui-form-mid"></div>
+            <div class="layui-form-mid" th:text="*{email}"></div>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">创建时间</label>
-        <div class="layui-form-mid"></div>
+        <div class="layui-form-mid" th:if="*{createTime != null} "th:text="*{#temporals.format(createTime, 'yyyy-MM-dd HH:mm:ss')}"></div>
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
@@ -45,5 +46,9 @@
         </div>
     </div>
 </div>
+<script th:src="@{/webjars/jquery/jquery.js}"></script>
+<script th:src="@{/webjars/layui/layui.all.js}"></script>
+<script th:src="@{/js/account/account.js}"></script>
+<script th:src="@{/js/common.js}"></script>
 </body>
 </html>

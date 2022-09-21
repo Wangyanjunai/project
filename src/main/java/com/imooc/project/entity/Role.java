@@ -1,11 +1,13 @@
 package com.imooc.project.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -36,4 +38,10 @@ public class Role extends BaseEntity implements Serializable {
      * 备注
      */
     private String remark;
+
+    /**
+     * 资源id列表
+     */
+    @TableField(exist = false)
+    private List<Long> resourceIds;
 }

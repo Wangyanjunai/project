@@ -57,15 +57,50 @@ table.on('tool(test)', function (obj) { // 注：test 是 table 原始标签的�
     var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
     let accountId = data.accountId;
     if (layEvent === 'detail') { //查看
-        openLayer('/account/toDetail/' + accountId, '用户详情');
+        openLayer('/account/toDetail/' + accountId, '账号详情');
     } else if (layEvent === 'del') { //删除
         layer.confirm('确定删除吗？', function (index) {
             layer.close(index);
             myDelete('/account/' + accountId);
         });
     } else if (layEvent === 'edit') { //编辑
-        openLayer('/account/toUpdate/' + accountId, '修改用户');
+        openLayer('/account/toUpdate/' + accountId, '修改账号');
         layui.form.render();
         mySubmit('updateSubmit', 'PUT');
+    }
+});
+
+/**
+ * 账号验重
+ */
+layui.form.verify({
+    checkUsername: function (value, item) { //value：表单的值、item：表单的DOM对象
+        let error = null;
+        let url = '/account/' + value;
+        let accountId = $("input[name='accountId']").val();
+        if (typeof (accountId) != 'undefined') {
+            url += '/' + accountId;
+        }
+        // console.log("url="+ url);
+        $.ajax({
+            url: url,
+            async: false,
+            type: 'GET',
+            success: function (res) {
+                if (res.code == 0) {
+                    if (res.data > 0) {
+                        error = "用户名已经存在。";
+                    }
+                } else {
+                    error = "用户名检测出错。";
+                }
+            },
+            error: function () {
+                error = "用户名检测出错。";
+            }
+        });
+        if (error != null) {
+            return error;
+        }
     }
 });

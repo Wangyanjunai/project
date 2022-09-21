@@ -22,4 +22,24 @@
                             ON a.role_id = r.role_id
             ${ew.customSqlSegment}
     </select>
+    <select id="selectAccountById" resultType="com.imooc.project.entity.Account">
+        SELECT a.account_id,
+               a.role_id,
+               a.username,
+               a.password,
+               a.salt,
+               a.real_name,
+               a.sex,
+               a.email,
+               a.create_time,
+               a.modified_time,
+               a.create_account_id,
+               a.modified_account_id,
+               a.deleted,
+               r.role_name
+        FROM account a
+                 INNER JOIN role r
+                            ON a.role_id = r.role_id
+        WHERE a.account_id = #{id} and a.deleted = 0
+    </select>
 </mapper>

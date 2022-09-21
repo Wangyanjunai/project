@@ -27,4 +27,12 @@ public interface AccountService extends IService<Account> {
      * @return
      */
     IPage<Account> accountPage(Page<Account> page, Wrapper<Account> wrapper);
+
+    /**
+     * 根据accountId查询账号信息
+     *
+     * @param id
+     * @return
+     */
+    Account getAccountById(Long id);
 }

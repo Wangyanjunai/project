@@ -40,8 +40,11 @@ function myDelete(url) {
  * @param filter
  * @param type
  */
-function mySubmit(filter, type) {
+function mySubmit(filter, type,func) {
     layui.form.on('submit(' + filter + ')', function (data) {
+        if (typeof (func) != 'undefined') {
+            func(data.field)
+        }
         $.ajax({
             url: data.form.action,
             async: false,
@@ -56,7 +59,7 @@ function mySubmit(filter, type) {
                     alert(res.msg);
                 }
             }
-        })
+        });
         return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
     });
 }
