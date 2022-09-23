@@ -1,7 +1,6 @@
-package com.imooc.project.dao;
+package com.imooc.project.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -13,25 +12,21 @@ import org.apache.ibatis.annotations.Param;
  * 账号表 Mapper 接口
  * </p>
  *
- * @author jack
- * @since 2022-09-15
+ * @author Jimmy
+ * @since 2020-12-31
  */
-public interface AccountMapper extends BaseMapper<Account> {
-
+public interface AccountMapper extends MyMapper<Account> {
     /**
      * 分页查询账号
-     *
-     * @param page
-     * @param wrapper
-     * @return
      */
-    IPage<Account> accountPage(Page<Account> page, @Param(Constants.WRAPPER) Wrapper<Account> wrapper);
+    IPage<Account> accountPage(Page<Account> page, @Param(Constants.WRAPPER)Wrapper<Account> wrapper);
 
-    /**
-     * 根据accountId查询账号信息
-     *
-     * @param id
-     * @return
-     */
+    /*** 功能描述:根据accountId查询账号信息
+    * @param:
+    * @return:
+    * @auther:
+    * @date:
+    */
     Account selectAccountById(Long id);
+
 }

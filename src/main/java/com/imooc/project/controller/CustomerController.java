@@ -1,18 +1,17 @@
 package com.imooc.project.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.imooc.project.entity.Customer;
 import com.imooc.project.service.CustomerService;
+import com.imooc.project.util.MyQuery;
+import com.imooc.project.util.QueryUtil;
 import com.imooc.project.util.ResultUtil;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import org.springframework.stereotype.Controller;
 
 import java.util.Map;
 
@@ -21,106 +20,93 @@ import java.util.Map;
  * 客户表 前端控制器
  * </p>
  *
- * @author jack
- * @since 2022-09-15
+ * @author Jimmy
+ * @since 2020-12-31
  */
-@Slf4j
 @Controller
-@RequestMapping("customer")
+@RequestMapping("/customer")
 @SuppressWarnings("deprecation")
 public class CustomerController {
 
+    @Autowired
     private CustomerService customerService;
 
-    @Autowired
-    public void setCustomerService(CustomerService customerService) {
-        this.customerService = customerService;
-    }
-
-    /**
-     * 进入列表页
-     *
-     * @return
-     */
-    @GetMapping("toList")
+    // 进入列表页
+    @GetMapping("/toList")
     public String toList() {
         return "customer/customerList";
     }
 
-
-    @GetMapping("list")
+    // // 查询方法
+    // @GetMapping("list")
+    // @ResponseBody
+    // public R<Map<String, Object>> list(String realName, String phone, Long page, Long limit) {
+    //     LambdaQueryWrapper<Customer> wrapper = Wrappers.<Customer>lambdaQuery()
+    //             .like(StringUtils.isNotBlank(realName), Customer::getRealName, realName)
+    //             .like(StringUtils.isNotBlank(phone), Customer::getPhone, phone)
+    //             .orderByDesc(Customer::getCustomerId);
+    //
+    //     Page<Customer> customerPage = customerService.page(new Page<>(page, limit), wrapper);
+    //
+    //     return ResultUtil.buildPageR(customerPage);
+    // }
+    // 查询方法
+	@GetMapping("/list")
     @ResponseBody
-    public R<Map<String, Object>> list(String realName, String phone, Long page, Long limit) {
-        LambdaQueryWrapper<Customer> wrapper = Wrappers.<Customer>lambdaQuery();
-        wrapper.like(StringUtils.isNotBlank(realName), Customer::getRealName, realName).like(StringUtils.isNotBlank(phone), Customer::getPhone, phone).orderByDesc(Customer::getCustomerId).orderByDesc(Customer::getCreateTime);
-        Page<Customer> customerPage = this.customerService.page(new Page<Customer>(page, limit), wrapper);
-        log.info("customerPage={}", customerPage);
+    public R<Map<String, Object>> list(@RequestParam Map<String, String> param) {
+        MyQuery<Customer> myQuery = QueryUtil.<Customer>buildMyQuery(param);
+
+        Page<Customer> customerPage = customerService.page(myQuery.getPage(), myQuery.getWrapper().orderByDesc("customer_id"));
+
         return ResultUtil.buildPageR(customerPage);
     }
 
-    /**
-     * 进入新增页
-     *
-     * @return
-     */
-    @GetMapping("toAdd")
+    // 进入新增页
+    @GetMapping("/toAdd")
     public String toAdd() {
         return "customer/customerAdd";
     }
 
+    // 新增客户
     @PostMapping
     @ResponseBody
     public R<Object> add(@RequestBody Customer customer) {
-        return ResultUtil.buildR(this.customerService.save(customer));
+        return ResultUtil.buildR(customerService.save(customer));
     }
 
-    /**
-     * 进入修改页
-     *
-     * @return
-     */
-    @GetMapping("toUpdate/{id}")
+
+    // 进入更新页
+    @GetMapping("/toUpdate/{id}")
     public String toUpdate(@PathVariable Long id, Model model) {
-        Customer customer = this.customerService.getById(id);
-        log.info("customer={}", customer);
+        Customer customer = customerService.getById(id);
         model.addAttribute("customer", customer);
         return "customer/customerUpdate";
     }
 
-    /**
-     * 修改客户
-     *
-     * @param customer
-     * @return
-     */
+    // 修改客户
     @PutMapping
     @ResponseBody
-    public R<Object> update(@RequestBody Customer customer) {
-        return ResultUtil.buildR(this.customerService.updateById(customer));
+    public R<Object> updateSubmit(@RequestBody Customer customer) {
+        return ResultUtil.buildR(customerService.updateById(customer));
     }
 
-    /**
-     * 逻辑删除客户
-     *
-     * @param id
-     * @return
-     */
+    // 删除客户
     @DeleteMapping("/{id}")
     @ResponseBody
     public R<Object> delete(@PathVariable Long id) {
-        return ResultUtil.buildR(this.customerService.removeById(id));
+        Customer customer = new Customer();
+        customer.setCustomerId(id);
+
+        return ResultUtil.buildR(customerService.removeByIdWithFill(customer));
     }
 
-    /**
-     * 进入详情页
-     *
-     * @return
-     */
-    @GetMapping("toDetail/{id}")
+    // 进入详情页
+    @GetMapping("/toDetail/{id}")
     public String toDetail(@PathVariable Long id, Model model) {
-        Customer customer = this.customerService.getById(id);
-        log.info("customer={}", customer);
+
+        Customer customer = customerService.getById(id);
         model.addAttribute("customer", customer);
         return "customer/customerDetail";
     }
+
 }

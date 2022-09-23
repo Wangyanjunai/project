@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
  * 角色资源表 前端控制器
  * </p>
  *
- * @author jack
- * @since 2022-09-15
+ * @author Jimmy
+ * @since 2020-12-31
  */
 @Controller
 @RequestMapping("/project/role-resource")

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+	<link rel="stylesheet" th:href="@{/webjars/layui/css/layui.css}">
 </head>
 <body>
 	<form class="layui-form" id="updateForm" th:action="@{/customer}" th:object="${customer}">
@@ -10,8 +11,7 @@
 			<div class="layui-input-block">
 				<input type="hidden" name="customerId" th:value="*{customerId}">
 				<input type="text" name="realName" placeholder="请输入姓名"
-					   autocomplete="off" class="layui-input" lay-verify="required" maxlength="50"
-					   th:value="*{realName}">
+					   autocomplete="off" class="layui-input" lay-verify="required" maxlength="50" th:value="*{realName}">
 			</div>
 		</div>
 		<div class="layui-form-item">
@@ -56,9 +56,5 @@
 			</div>
 		</div>
 	</form>
-	<script th:src="@{/webjars/jquery/jquery.js}"></script>
-	<script th:src="@{/webjars/layui/layui.all.js}"></script>
-	<script th:src="@{/js/customer/customer.js}"></script>
-	<script th:src="@{/js/common.js}"></script>
 </body>
 </html>

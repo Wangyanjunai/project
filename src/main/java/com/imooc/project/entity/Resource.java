@@ -1,6 +1,10 @@
 package com.imooc.project.entity;
 
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -9,8 +13,8 @@ import lombok.EqualsAndHashCode;
  * 资源表
  * </p>
  *
- * @author jack
- * @since 2022-09-15
+ * @author Jimmy
+ * @since 2020-12-31
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -21,6 +25,7 @@ public class Resource implements Serializable {
     /**
      * 主键
      */
+    @TableId(value = "resource_id", type = IdType.AUTO)
     private Long resourceId;
 
     /**
@@ -52,4 +57,6 @@ public class Resource implements Serializable {
      * 排序
      */
     private Integer sort;
+
+
 }

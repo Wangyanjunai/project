@@ -11,8 +11,8 @@ import lombok.EqualsAndHashCode;
  * 角色资源表
  * </p>
  *
- * @author jack
- * @since 2022-09-15
+ * @author Jimmy
+ * @since 2020-12-31
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -35,4 +35,6 @@ public class RoleResource implements Serializable {
      * 资源id
      */
     private Long resourceId;
+
+
 }

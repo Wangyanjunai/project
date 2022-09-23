@@ -15,18 +15,8 @@ public class AccountQuery {
      */
     private String email;
 
-    /**
-     * 时间范围
-     */
     private String createTimeRange;
 
-    /**
-     * 当前页
-     */
     private Long page;
-
-    /**
-     * 每页条数
-     */
     private Long limit;
 }

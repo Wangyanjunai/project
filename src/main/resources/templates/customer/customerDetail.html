@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/webjars/layui/css/layui.css}">
 </head>
 <body>
 <div class="layui-form" th:object="${customer}">
@@ -43,7 +44,8 @@
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">创建时间</label>
-        <div class="layui-form-mid" th:if="*{createTime != null}" th:text="*{#temporals.format(createTime, 'yyyy-MM-dd HH:mm:ss')}"></div>
+        <div class="layui-form-mid" th:text="*{#temporals.format(createTime, 'yyy-MM-dd HH:mm:ss')}"></div>
+        <!--        <div class="layui-form-mid" th:text="*{createTime}"></div>-->
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">

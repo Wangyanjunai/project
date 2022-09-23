@@ -1,23 +1,22 @@
 package com.imooc.project.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.imooc.project.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.io.Serializable;
 
 /**
  * <p>
  * 客户表
  * </p>
  *
- * @author jack
- * @since 2022-09-15
+ * @author Jimmy
+ * @since 2020-12-31
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class Customer extends BaseEntity implements Serializable {
+public class Customer extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -56,4 +55,5 @@ public class Customer extends BaseEntity implements Serializable {
      * 地址
      */
     private String address;
+
 }

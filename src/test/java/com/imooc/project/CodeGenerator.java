@@ -1,17 +1,22 @@
 package com.imooc.project;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
+import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
+import com.baomidou.mybatisplus.generator.config.rules.FileType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 // 演示例子，执行 main 方法控制台输入模块表名回车自动生成对应项目目录中
@@ -30,9 +35,15 @@ public class CodeGenerator {
         if (scanner.hasNext()) {
             String ipt = scanner.next();
             if (StringUtils.isNotBlank(ipt)) {
+            	if (!Objects.isNull(scanner)) {
+                	scanner.close();
+        		}
                 return ipt;
             }
         }
+        if (!Objects.isNull(scanner)) {
+        	scanner.close();
+		}
         throw new MybatisPlusException("请输入正确的" + tip + "！");
     }
 
@@ -43,6 +54,7 @@ public class CodeGenerator {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
+        System.out.println("projectPath = " + projectPath);
         gc.setOutputDir(projectPath + "/src/main/java");
         gc.setAuthor("Jack");
         gc.setOpen(false);
@@ -52,11 +64,11 @@ public class CodeGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/project?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&serverTimezone=Asia/Shanghai");
+        dsc.setUrl("jdbc:mysql://localhost:3306/idiom?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2B8");
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
-        dsc.setUsername("project");
-        dsc.setPassword("XueGod!@#123");
+        dsc.setUsername("idiom");
+        dsc.setPassword("123456");
         mpg.setDataSource(dsc);
 
         // 包配置
@@ -88,32 +100,20 @@ public class CodeGenerator {
                 return projectPath + "/src/main/resources/mapper/" + pc.getModuleName() + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
             }
         });
-        /*
+
+        // 覆盖生成的代码
         cfg.setFileCreate(new IFileCreate() {
             @Override
             public boolean isCreate(ConfigBuilder configBuilder, FileType fileType, String filePath) {
-                // 判断自定义文件夹是否需要创建
-                checkDir("调用默认方法创建的目录，自定义目录用");
-                if (fileType == FileType.MAPPER) {
-                    // 已经生成 mapper 文件判断存在，不想重新生成返回 false
-                    return !new File(filePath).exists();
-                }
-                // 允许生成模板文件
                 return true;
             }
         });
-        */
+
         cfg.setFileOutConfigList(focList);
         mpg.setCfg(cfg);
 
         // 配置模板
         TemplateConfig templateConfig = new TemplateConfig();
-
-        // 配置自定义输出模板
-        //指定自定义模板路径，注意不要带上.ftl/.vm, 会根据使用的模板引擎自动识别
-        // templateConfig.setEntity("templates/entity2.java");
-        // templateConfig.setService();
-        // templateConfig.setController();
 
         templateConfig.setXml(null);
         mpg.setTemplate(templateConfig);
@@ -122,18 +122,34 @@ public class CodeGenerator {
         StrategyConfig strategy = new StrategyConfig();
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-//        strategy.setSuperEntityClass("你自己的父类实体,没有就不用设置!");
+
+        if (scanner("是否继承基类(y/n)").equalsIgnoreCase("y")) {
+            strategy.setSuperEntityClass("com.imooc.project.entity.BaseEntity");
+            // 写于父类中的公共字段
+            strategy.setSuperEntityColumns("t_create_time", "t_update_time", "t_reserve_column01", "t_reserve_column02", "t_reserve_column03", "t_reserve_column04");
+        }
+
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(false);
         // 公共父类
-//        strategy.setSuperControllerClass("你自己的父类控制器,没有就不用设置!");
-        // 写于父类中的公共字段
-        strategy.setSuperEntityColumns("id");
+        // strategy.setSuperControllerClass("你自己的父类控制器,没有就不用设置!");
         strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
         strategy.setControllerMappingHyphenStyle(true);
-//        strategy.setTablePrefix(pc.getModuleName() + "_");
+//        strategy.setLogicDeleteFieldName("deleted");
+
+        ArrayList<TableFill> tableFills = new ArrayList<>();
+        TableFill createTime = new TableFill("t_create_time", FieldFill.INSERT);
+        TableFill modifiedTime = new TableFill("t_update_time", FieldFill.UPDATE);
+        tableFills.add(createTime);
+        tableFills.add(modifiedTime);
+        strategy.setTableFillList(tableFills);
+
+        // strategy.setTablePrefix(pc.getModuleName() + "_");
+        strategy.setTablePrefix("idiom" + "_");
+        strategy.setFieldPrefix("t" + "_");
         mpg.setStrategy(strategy);
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         mpg.execute();
     }
 }
+
