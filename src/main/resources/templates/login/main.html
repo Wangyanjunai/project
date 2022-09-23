@@ -23,7 +23,8 @@
                     <dd>
                         <a href="">安全设置</a>
                     </dd>
-                </dl></li>
+                </dl>
+            </li>
             <li class="layui-nav-item"><a th:href="@{/auth/logout}">退了</a></li>
         </ul>
     </div>
@@ -31,11 +32,13 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
                 <li class="layui-nav-item layui-nav-itemed" th:each="resource:${resources}">
                     <a class="" href="javascript:;" th:text="${resource.resourceName}">所有商品</a>
                     <dl class="layui-nav-child" th:if="${resource.subs} ne null" th:each="sub:${resource.subs}">
-                        <dd><a th:href="'javascript:showTab(\''+${sub.url}+'\',\'' +${sub.resourceName}+'\',' + ${sub.resourceId} +');'" th:text="${sub.resourceName}">列表一</a></dd>
+                        <dd>
+                            <a th:href="'javascript:showTab(\''+${sub.url}+'\',\'' +${sub.resourceName}+'\',' + ${sub.resourceId} +');'"
+                               th:text="${sub.resourceName}">列表一</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -49,7 +52,7 @@
                 <li class="layui-this">欢迎页</li>
             </ul>
             <div class="layui-tab-content">
-                <div class="layui-tab-item layui-show">欢迎使用本系统</div>
+                <div class="layui-tab-item layui-show">欢迎您<span th:text="${session.account.realName}"></span>使用本系统!</div>
             </div>
         </div>
     </div>

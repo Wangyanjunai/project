@@ -16,13 +16,10 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         if (metaObject.hasSetter("createTime")) {
             this.strictInsertFill(metaObject, "createTime", LocalDateTime.class, LocalDateTime.now());
         }
-
         if (metaObject.hasSetter("createAccountId")) {
             // 自动填充创建人
-            Object account = RequestContextHolder.getRequestAttributes().getAttribute("account",
-                    RequestAttributes.SCOPE_SESSION);
-            System.out.println("account = " + account);
-            if (account != null) {
+            Object account = RequestContextHolder.getRequestAttributes().getAttribute("account", RequestAttributes.SCOPE_SESSION);
+            if (account != null && account instanceof Account) {
                 Long accountId = ((Account) account).getAccountId();
                 this.strictInsertFill(metaObject, "createAccountId", Long.class, accountId);
             }
@@ -34,12 +31,10 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         if (metaObject.hasSetter("modifiedTime")) {
             this.strictUpdateFill(metaObject, "modifiedTime", LocalDateTime.class, LocalDateTime.now());
         }
-
         if (metaObject.hasSetter("modifiedAccountId")) {
             // 自动填充修改人
-            Object account = RequestContextHolder.getRequestAttributes().getAttribute("account",
-                    RequestAttributes.SCOPE_SESSION);
-            if (account != null) {
+            Object account = RequestContextHolder.getRequestAttributes().getAttribute("account", RequestAttributes.SCOPE_SESSION);
+            if (account != null && account instanceof Account) {
                 Long accountId = ((Account) account).getAccountId();
                 this.strictUpdateFill(metaObject, "modifiedAccountId", Long.class, accountId);
             }
