@@ -67,7 +67,7 @@ public class RoleController {
         return "role/roleAdd";
     }
 
-    // 新增客户
+    // 新增角色
     @PostMapping
     @ResponseBody
     public R<Object> add(@RequestBody Role role) {

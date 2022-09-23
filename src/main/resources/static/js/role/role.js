@@ -25,7 +25,7 @@ var tableIns = table.render({
 function query() {
     tableIns.reload({
         where: { //设定异步数据接口的额外参数，任意设
-            realName: $("#roleName").val()
+            'like$role_name': $("#roleName").val()
             //…
         }
         , page: {
