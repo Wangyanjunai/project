@@ -113,7 +113,7 @@ public class AccountController {
     }
 
     // 删除
-    @DeleteMapping ("/{id}")
+    @DeleteMapping("/{id}")
     @ResponseBody
     public R<Object> delete(@PathVariable Long id, HttpSession session) {
         Account account = (Account) session.getAttribute("account");
@@ -124,7 +124,7 @@ public class AccountController {
     }
 
     // 进入详情页
-    @GetMapping ("/toDetail/{id}")
+    @GetMapping("/toDetail/{id}")
     public String toDetail(@PathVariable Long id, Model model) {
 
         Account account = accountService.getAccountById(id);
@@ -134,12 +134,22 @@ public class AccountController {
     }
 
     // 重名校验
-    @GetMapping ({"/{username}", "/{username}/{accountId}"})
+    @GetMapping({"/{username}", "/{username}/{accountId}"})
     @ResponseBody
     public R<Object> checkUsername(@PathVariable String username, @PathVariable(required = false) Long accountId) {
         Integer count = accountService.lambdaQuery().eq(Account::getUsername, username)
                 .ne(accountId != null, Account::getAccountId, accountId)
                 .count();
         return R.ok(count);
+    }
+
+    // 基本资料
+    @GetMapping("/info/{id}")
+    public String info(@PathVariable Long id, Model model) {
+
+        Account account = accountService.getAccountById(id);
+        model.addAttribute("account", account);
+
+        return "account/accountDetail";
     }
 }

@@ -88,7 +88,9 @@ function getIds(checkedData, arr) {
 // 1. 监听编辑界面
 table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
     var data = obj.data; //获得当前行数据
+
     var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+
     var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
 
     let roleId = data.roleId;
@@ -96,6 +98,7 @@ table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，tes
     if (layEvent === 'detail') { //查看
         //do somehing
         openLayer('/role/toDetail/' + roleId, '角色详情');
+
         showTree('/role/listResource/'+ roleId + '/1', 'resource', false);
 
     } else if (layEvent === 'del') { //删除
@@ -108,12 +111,13 @@ table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，tes
         });
     } else if (layEvent === 'edit') { //编辑
         //do something
-        openLayer('/role/toUpdate/' + roleId, '编辑角色')
+        openLayer('/role/toUpdate/' + roleId, '编辑角色');
 
-        showTree('/role/listResource/'+ roleId  + '/0', 'resource');
+        showTree('/role/listResource/' + roleId + '/0', 'resource');
 
         layui.form.render();
-        mySubmit("updateSubmit", "PUT", addIds)
+
+        mySubmit("updateSubmit", "PUT", addIds);
 
     }
 });

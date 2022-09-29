@@ -18,10 +18,11 @@
             </a>
                 <dl class="layui-nav-child">
                     <dd>
-                        <a href="">基本资料</a>
+                        <input id="accountId" type="hidden" th:value="${session.account.accountId}">
+                        <a th:href="'javascript:info();'">基本资料</a>
                     </dd>
                     <dd>
-                        <a href="">安全设置</a>
+                        <a th:href="'javascript:setting();'">安全设置</a>
                     </dd>
                 </dl>
             </li>
@@ -38,7 +39,8 @@
                     <dl class="layui-nav-child" th:if="${resource.subs} ne null" th:each="sub:${resource.subs}">
                         <dd>
                             <a th:href="'javascript:showTab(\''+${sub.url}+'\',\'' +${sub.resourceName}+'\',' + ${sub.resourceId} +');'"
-                               th:text="${sub.resourceName}">列表一</a></dd>
+                               th:text="${sub.resourceName}">列表一</a>
+                        </dd>
                     </dl>
                 </li>
             </ul>
@@ -52,7 +54,8 @@
                 <li class="layui-this">欢迎页</li>
             </ul>
             <div class="layui-tab-content">
-                <div class="layui-tab-item layui-show">欢迎您<span th:text="${session.account.realName}"></span>使用本系统!</div>
+                <div class="layui-tab-item layui-show">欢迎您<span th:text="${session.account.realName}"></span>使用本系统!
+                </div>
             </div>
         </div>
     </div>
@@ -64,6 +67,7 @@
 </div>
 <script th:src="@{/webjars/layui/layui.all.js}"></script>
 <script th:src="@{/webjars/jquery/jquery.js}"></script>
+<script th:src="@{/js/common/common.js}"></script>
 <script th:src="@{/js/login/main.js}"></script>
 </body>
 </html>

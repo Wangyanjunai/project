@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class MybatisPlusConfig {
-	
+
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
@@ -18,12 +18,14 @@ public class MybatisPlusConfig {
         return interceptor;
     }
 
-    /*** 功能描述: 自定义SQL注入器
-    * @param:
-    * @return:
-    * @auther:
-    * @date:
-    */
+    /**
+     * 功能描述: 自定义SQL注入器
+     *
+     * @param:
+     * @return:
+     * @auther:
+     * @date:
+     */
     @Bean
     public DefaultSqlInjector sqlInjector() {
         return new MySqlInjector();
