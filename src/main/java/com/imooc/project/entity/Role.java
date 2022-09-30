@@ -17,7 +17,7 @@ import java.util.List;
  * @since 2020-12-31
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 public class Role extends BaseEntity {
 
     private static final long serialVersionUID = 1L;

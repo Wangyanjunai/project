@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
  * @since 2020-12-31
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 public class Customer extends BaseEntity {
 
     private static final long serialVersionUID = 1L;

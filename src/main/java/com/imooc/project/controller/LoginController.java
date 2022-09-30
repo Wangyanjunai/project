@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
-
 import java.util.HashSet;
 import java.util.List;
 
@@ -21,11 +20,19 @@ import java.util.List;
 @RequestMapping("/auth")
 public class LoginController {
 
-    @Autowired
     private AccountService accountService;
 
-    @Autowired
     private ResourceService resourceService;
+
+    @Autowired
+    public void setAccountService(AccountService accountService) {
+        this.accountService = accountService;
+    }
+
+    @Autowired
+    public void setResourceService(ResourceService resourceService) {
+        this.resourceService = resourceService;
+    }
 
     @PostMapping("/login")
     public String login(String username, String password, HttpSession session, RedirectAttributes attributes,

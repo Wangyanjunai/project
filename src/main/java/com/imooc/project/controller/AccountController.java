@@ -37,11 +37,19 @@ import java.util.Map;
 @SuppressWarnings("deprecation")
 public class AccountController {
 
-    @Autowired
     private AccountService accountService;
 
-    @Autowired
     private RoleService roleService;
+
+    @Autowired
+    public void setAccountService(AccountService accountService) {
+        this.accountService = accountService;
+    }
+
+    @Autowired
+    public void setRoleService(RoleService roleService) {
+        this.roleService = roleService;
+    }
 
     // 进入列表页
     @GetMapping("/toList")

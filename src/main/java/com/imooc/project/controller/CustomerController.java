@@ -8,10 +8,9 @@ import com.imooc.project.util.MyQuery;
 import com.imooc.project.util.QueryUtil;
 import com.imooc.project.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import org.springframework.stereotype.Controller;
 
 import java.util.Map;
 
@@ -28,8 +27,12 @@ import java.util.Map;
 @SuppressWarnings("deprecation")
 public class CustomerController {
 
-    @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    public void setCustomerService(CustomerService customerService) {
+        this.customerService = customerService;
+    }
 
     // 进入列表页
     @GetMapping("/toList")
@@ -51,10 +54,10 @@ public class CustomerController {
     //     return ResultUtil.buildPageR(customerPage);
     // }
     // 查询方法
-	@GetMapping("/list")
+    @GetMapping("/list")
     @ResponseBody
     public R<Map<String, Object>> list(@RequestParam Map<String, String> param) {
-        MyQuery<Customer> myQuery = QueryUtil.<Customer>buildMyQuery(param);
+        MyQuery<Customer> myQuery = QueryUtil.buildMyQuery(param);
 
         Page<Customer> customerPage = customerService.page(myQuery.getPage(), myQuery.getWrapper().orderByDesc("customer_id"));
 

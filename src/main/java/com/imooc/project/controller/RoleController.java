@@ -34,17 +34,29 @@ import java.util.Map;
 @SuppressWarnings("deprecation")
 public class RoleController {
 
-    @Autowired
     private RoleService roleService;
 
-    @Autowired
     private ResourceService resourceService;
 
-    @Autowired
     private AccountService accountService;
 
+    @Autowired
+    public void setRoleService(RoleService roleService) {
+        this.roleService = roleService;
+    }
+
+    @Autowired
+    public void setResourceService(ResourceService resourceService) {
+        this.resourceService = resourceService;
+    }
+
+    @Autowired
+    public void setAccountService(AccountService accountService) {
+        this.accountService = accountService;
+    }
+
     // 进入列表页
-    @GetMapping ("/toList")
+    @GetMapping("/toList")
     public String toList() {
         return "role/roleList";
     }
