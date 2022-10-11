@@ -35,15 +35,14 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(String username, String password, HttpSession session, RedirectAttributes attributes,
-                        Model model) {
+    public String login(String username, String password, HttpSession session, RedirectAttributes attributes, Model model) {
         LoginDTO loginDTO = accountService.login(username, password);
         String error = loginDTO.getError();
         if (error == null) {
             session.setAttribute("account", loginDTO.getAccount());
             List<ResourceVO> resourceVOS = resourceService.listResourceByRoleId(loginDTO.getAccount().getRoleId());
             model.addAttribute("resources", resourceVOS);
-            
+
             HashSet<String> module = this.resourceService.convert(resourceVOS);
             session.setAttribute("module", module);
         } else {
