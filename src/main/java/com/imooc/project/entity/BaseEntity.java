@@ -24,7 +24,8 @@ public class BaseEntity implements Serializable{
     /**
      * 修改时间
      */
-    @TableField (fill = FieldFill.UPDATE)
+    @TableField(fill = FieldFill.UPDATE)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime modifiedTime;
 
     /**

@@ -16,7 +16,6 @@ import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
 
 // 演示例子，执行 main 方法控制台输入模块表名回车自动生成对应项目目录中
@@ -29,21 +28,15 @@ public class CodeGenerator {
      */
     public static String scanner(String tip) {
         Scanner scanner = new Scanner(System.in);
-        StringBuilder help = new StringBuilder();
-        help.append("请输入" + tip + "：");
-        System.out.println(help.toString());
+        System.out.println("请输入" + tip + "：");
         if (scanner.hasNext()) {
             String ipt = scanner.next();
             if (StringUtils.isNotBlank(ipt)) {
-            	if (!Objects.isNull(scanner)) {
-                	scanner.close();
-        		}
+                scanner.close();
                 return ipt;
             }
         }
-        if (!Objects.isNull(scanner)) {
-        	scanner.close();
-		}
+        scanner.close();
         throw new MybatisPlusException("请输入正确的" + tip + "！");
     }
 
@@ -64,11 +57,11 @@ public class CodeGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/idiom?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2B8");
+        dsc.setUrl("jdbc:mysql://localhost:3306/project?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2B8");
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
-        dsc.setUsername("idiom");
-        dsc.setPassword("123456");
+        dsc.setUsername("project");
+        dsc.setPassword("XueGod!@#123");
         mpg.setDataSource(dsc);
 
         // 包配置
@@ -126,27 +119,30 @@ public class CodeGenerator {
         if (scanner("是否继承基类(y/n)").equalsIgnoreCase("y")) {
             strategy.setSuperEntityClass("com.imooc.project.entity.BaseEntity");
             // 写于父类中的公共字段
-            strategy.setSuperEntityColumns("t_create_time", "t_update_time", "t_reserve_column01", "t_reserve_column02", "t_reserve_column03", "t_reserve_column04");
+            strategy.setSuperEntityColumns("create_time", "modified_time", "create_account_id", "modified_account_id", "deleted");
         }
-
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(false);
         // 公共父类
         // strategy.setSuperControllerClass("你自己的父类控制器,没有就不用设置!");
         strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
         strategy.setControllerMappingHyphenStyle(true);
-//        strategy.setLogicDeleteFieldName("deleted");
+        strategy.setLogicDeleteFieldName("deleted");
 
         ArrayList<TableFill> tableFills = new ArrayList<>();
-        TableFill createTime = new TableFill("t_create_time", FieldFill.INSERT);
-        TableFill modifiedTime = new TableFill("t_update_time", FieldFill.UPDATE);
+        TableFill createTime = new TableFill("create_time", FieldFill.INSERT);
+        TableFill modifiedTime = new TableFill("modified_time", FieldFill.UPDATE);
+        TableFill createAccountId = new TableFill("create_account_id", FieldFill.INSERT);
+        TableFill modifiedAccountId = new TableFill("modified_account_id", FieldFill.UPDATE);
         tableFills.add(createTime);
         tableFills.add(modifiedTime);
+        tableFills.add(createAccountId);
+        tableFills.add(modifiedAccountId);
         strategy.setTableFillList(tableFills);
 
         // strategy.setTablePrefix(pc.getModuleName() + "_");
-        strategy.setTablePrefix("idiom" + "_");
-        strategy.setFieldPrefix("t" + "_");
+        // strategy.setTablePrefix("idiom" + "_");
+        // strategy.setFieldPrefix("t" + "_");
         mpg.setStrategy(strategy);
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         mpg.execute();
