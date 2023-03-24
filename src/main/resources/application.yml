@@ -3,44 +3,21 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/project?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2B8
     username: project
-    password: 123456
-
+    password: XueGod!@#123
   thymeleaf:
     cache: false
     mode: HTML
     encoding: UTF-8
     servlet:
       content-type: text/html
-#    prefix: classpath:/
     prefix: classpath:/templates/
-
-
 mybatis-plus:
   global-config:
     db-config:
       id-type: auto
   mapper-locations: classpath:mapper/project/*Mapper.xml
   type-aliases-package: com.imooc.project.entity
-
 logging:
   level:
-    root: warn
-    com.imooc.project.mapper: trace
-  pattern:
-    console: '%p%m%n'    
-
-
-##配置项，
-##这里主要配置模板引擎的数据
-#
-##thymeleaf配置
-##模板的模式，支持如：HTML、XML、TEXT、JAVASCRIPT等
-#  spring.thymeleaf.mode=HTML5
-#  #编码，可不用配置
-#  spring.thymeleaf.encoding=UTF-8
-#  #内容类别，可不用配置
-#  spring.thymeleaf.servlet.content-type=text/html
-#  #开发配置为false，避免修改模板还要重启服务器
-#  spring.thymeleaf.cache=false
-#  #配置模板路径，默认就是templates，可不用配置
-#  spring.thymeleaf.prefix=classpath:/templates/
+    root: INFO
+    com.imooc.project.mapper: TRACE

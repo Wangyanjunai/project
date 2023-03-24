@@ -60,7 +60,7 @@ public class AccountController {
     @GetMapping("/list")
     @ResponseBody
     public R<Map<String, Object>> list(AccountQuery query) {
-        QueryWrapper<Account> wrapper = Wrappers.<Account>query();
+        QueryWrapper<Account> wrapper = Wrappers.query();
         wrapper.like(StringUtils.isNotBlank(query.getRealName()), "a.real_name", query.getRealName())
                 .like(StringUtils.isNotBlank(query.getEmail()), "a.email", query.getEmail())
                 .orderByDesc("a.account_id").eq("a.deleted", 0);

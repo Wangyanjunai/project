@@ -1,7 +1,7 @@
-var table = layui.table
+const table = layui.table
 
 // 第一个实例
-var tableIns = table.render({
+const tableIns = table.render({
     elem: '#roleList'
     , url: '/role/list'
     , page: true
@@ -25,7 +25,7 @@ var tableIns = table.render({
 function query() {
     tableIns.reload({
         where: { //设定异步数据接口的额外参数，任意设
-            'like$role_name': $("#roleName").val()
+            'roleName': $("#roleName").val()
             //…
         }
         , page: {
@@ -70,8 +70,8 @@ function showTree(url, id, showChebox) {
     })
 }
 
-var addIds = function (field) {
-    var checkedData = layui.tree.getChecked('resource');
+const addIds = function (field) {
+    const checkedData = layui.tree.getChecked('resource');
     field.resourceIds = getIds(checkedData, []);
 }
 
@@ -87,11 +87,11 @@ function getIds(checkedData, arr) {
 //监听工具条
 // 1. 监听编辑界面
 table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
-    var data = obj.data; //获得当前行数据
+    const data = obj.data; //获得当前行数据
 
-    var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+    const layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
 
-    var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
+    //const tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
 
     let roleId = data.roleId;
 
@@ -99,7 +99,7 @@ table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，tes
         //do somehing
         openLayer('/role/toDetail/' + roleId, '角色详情');
 
-        showTree('/role/listResource/'+ roleId + '/1', 'resource', false);
+        showTree('/role/listResource/' + roleId + '/1', 'resource', false);
 
     } else if (layEvent === 'del') { //删除
         layer.confirm('真的删除行么', function (index) {
